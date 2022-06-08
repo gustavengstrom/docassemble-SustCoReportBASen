@@ -1,0 +1,150 @@
+metadata:
+  title: |
+    sustcoreport sustainability analysis based on ISO26000 och SIS/TS 2:20211
+  short title: |
+    Web portal for analysis of organisations sustainability work based on key aspects of ISO2600 and SIS/TS 2:2021
+  show login: False
+  description: |
+    Web application for sustainability analysis for SMEs.
+  authors:
+    - name: Gustav Engström and Jonas Norén
+      organization: dav|consulting
+  revision_date: 2022-01-01
+
+---
+## image varibles are set here
+images:
+  'sds_favicon': sds_favicon.png
+  'sds_intro': sds_intro.png
+  'ballon_intro': ballon.png
+  'kite_intro': kite_sun.png
+  'report_all': ra.png
+  'sustcoreport_logo': sustcoreport_logo.png
+  'scr_question': scr_question.png
+
+
+---
+## features for the survey are managed here
+features:
+  css: sds.css
+  popover trigger: hover
+  #css: https://bootswatch.com/4/simplex/bootstrap.min.css
+  #bootstrap theme: https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css
+  navigation: False
+  progress bar: False
+  show progress bar percentage: False
+  progressive: True
+  inverse navbar: False
+  hide navbar: True
+
+
+---
+## all objects for the survey are managed here
+objects:
+  - results: DAList
+  - visualization_image_radar_1: DAFile
+    datatype: file
+    maximum image size: 1024
+  - visualization_image_radar_2: DAFile
+    datatype: file
+    maximum image size: 1024
+  - visualization_image_radar_3: DAFile
+    datatype: file
+    maximum image size: 1024
+  - visualization_image_radar_4: DAFile
+    datatype: file
+    maximum image size: 1024
+  - visualization_image_scatter: DAFile
+    datatype: file
+    maximum image size: 1024
+
+---
+sections:
+  - Introduction
+  - Basic information 
+  - Principles
+  - Core
+  - Stakeholders
+  - Priorities
+  - Report
+  - End
+
+---
+interview help:
+  label: Help
+  heading: Do we want to use this
+  content: |
+    INCLUDE TEXTS
+  
+---
+terms:
+
+#! definition av hållbarhetsbegrepp
+
+  Sustainable Development: |
+    Sustainable development - development that meets today's needs without compromising the ability of future generations to meet their needs. 
+  Social responsibility: |
+    Social responsibility - an organization's responsibility for the impact that the organization's decisions and activities have on the environment, society and economy; and which, through transparent and ethical behavior, contributes to sustainable development.
+
+  information management: | 
+    Sustcoreport follows Swedish and European law for handling and storage of personal data  - Personal Data Act (PUL) and General Data Protection Regulation (GDPR). <br> <br>
+    
+    All data traffic in Sustcoreport is protected and no personal or actor-related information is retained unless agreed to. However, some metadata is saved in order to give Sustcoreport an understanding of how companies and organizations, at an aggregate level, view the issues raised in Sustcoreport.
+
+#! definitioner av hållbarhetsprinciperna (Q5)
+  Accountability: |
+    ** To take responsibility for impacts on society, the economy and the environment. ** <br>
+    Example: Accepts relevant review and be responsible, counteract repetition of unintentional and unforeseen negative effects.
+  Transparency: |
+    ** To be transparent in terms of decisions and activities that affect society and the environment. ** <br>
+    Example: Publishes clear, accurate, easily accessible, reasonable information about the effects of the management and decisions we are responsible for.  
+  Ethical behavior: |
+    ** To behave ethically. ** <br>
+    Example: Applies values ​​such as honesty, equity and integrity, by showing care for, for example, people and the environment,.
+  Respect for stakeholder interests: |
+    ** To respect, consider and respond to the interests of stakeholders. ** <br>
+    Example: identify and consider individuals or groups that may have rights, relevant requirements and needs.
+  Respect for the rule of law: |
+    ** To accept that respect for the rule of law is mandatory. ** <br>
+    Example: Know and follow applicable laws and regulations where we operate.
+  Respect for international norms of behaviour: |
+    ** To respect international norms of behaviour, while complying with the rule of law. ** <br> <br>
+    Example: strives to respect international norms when legal requirements are lacking, or when requirements are contrary to international norms, and avoids complication.  
+  Respect for human rights: |
+    ** To respect human rights and recognize their meaning and general validity. ** <br>
+    Example: helps to respected human rights and avoid taking advantage of situations where they are not respected
+
+#! definitioner till intressent frågor (Q8)
+  Key stakeholders : |
+    Text
+  Stakeholders priorities : |
+    Text
+
+#! definitioer av hållbarhets huvudområde (Q11)
+  Organizational governance: |
+    ** System through which the organization makes and implements decisions to reach its goals. ** <br>
+    Example: Apply the 7 principles, engage stakeholders, improve influence, follow up, evaluate.
+  Human rights: |
+    ** Civil and political rights as well as economic, social and cultural rights are respected. ** <br>
+    Example: Support human rights in one's own organization, in the supply chain, and in society through, for example, collaborations, in connection with purchasing, acquisitions, mergers, in risk situations, in working life, to avoid, among other things, complicity, discrimination, child labor, and handel grievances. 
+  Labour practices: |
+    ** Governance and the relationship between the organization and the work carried out within, by or on behalf of the organization, including work performed by subcontractors. ** <br>
+    Example: Everyone's right to earn their living through freely chosen work and the right to justice and satisfactory working conditions, work environment, social security and personal development.
+  Environment: |
+    ** Negative environmental impact is minimized through risk management, life cycle perspective, environmental impact assessment, precaution, and that the polluter pays. ** <br>
+    Example: Prevention of pollution, sustainable use of resources, limitation and adaptation to climate change, and protection of nature, biodiversity and restoration of natural habitats.
+  Fair operating practices: |
+    ** Ethical behaviour in contacts with other organizations, promotes improvements, shows leadership, in the sphere of influence of the organization. ** <br>
+    Example: Anti-corruption, responsible political involvement, fair competition, responsibility in the supply chain, property rights.
+  Consumer issues: |
+    ** Provided products and services shall be subject to information and accurate information using good transparent and useful marketing information and contractual practices. ** <br>
+    Example: Protection of consumers and customers' health and safety, sustainable consumption, grievance and redress procedures, protection of personal data
+  Community involvement and development: |
+    ** Support for and development of the local community in common areas of interest, and in consultation with affected parties, can contribute to social development and strengthen civil society. ** <br>    
+    Example: Local community involvement through participation, education and culture, job creation and skills development, development and access to technology, create income opportunities, health, social investments.
+
+#! definitions of UN SDGs (Q13/22)
+  No poverty: |
+    No Poverty - test
+
+---

@@ -1,0 +1,1030 @@
+---
+include:
+  - survey_variables.yml
+  - survey_settings.yml
+
+---
+modules:
+  - .post
+  - .display_graph
+
+---
+mandatory: True
+section: Introduktion
+question:  |
+  [FILE sustcoreport_logo]
+subquestion: |
+ 
+  Welcome to *Sustcoreport* - A web-based tool where organizations and companies can perform an initial analysis to get started with their sustainability work.
+ 
+  It takes an estimated 15-20 minutes to complete the questions, which generates a unique report for your company or organization.
+  
+  The process is completely anonymous and no information that can be linked to you or your company or organization will be recorded. Read more about how submitted information is handled via the link {information management}<br><br>
+
+
+buttons:
+  - Continue: continue
+
+
+---
+mandatory: True
+code: |
+  df = create_df(results_table) #this is initatied in survey_variables - uses a DA table block but do not show it to the respondents.
+  results.object_type = Thing
+  results.there_are_any = True
+
+---
+mandatory: True
+section: Grunduppgifter
+question: |
+  Basic information 
+subquestion: |
+  The following information is requested to compile your specific Sustcoreport. <br> <br>
+fields:
+  - Today's date: results[i].date
+    datatype: date
+    required: True
+  - Your name: responsible_person_docinput
+    required: False
+  - Name of the organization: results[i].name.text
+    required: True
+  - Organizational form: results[i].org_form
+    required: True
+    code: |
+      orgform_dropdown
+  - Organization's headquarter: place_docinput
+    required: True
+  - Sector: results[i].industry
+    required: True
+    code: |
+      industry_dropdown
+  - Another sector, namely: results[i].industry
+    required: True
+    show if:
+      variable: results[i].industry
+      is: Other
+  - Country: results[i].country
+    required: True
+    code: |
+      country_dropdown
+  - Swedish region: results[i].region
+    code: |
+      region_dropdown
+    show if:
+      variable: results[i].country
+      is: "Sweden"
+  - Number of employees: results[i].employee
+    required: True
+    code: |
+      employee_dropdown
+  - Turnover: results[i].turnaround
+    required: True
+    code: |
+      turnaround_dropdown
+  - Business orientation: results[i].op_focus
+    required: True
+    datatype: checkboxes
+    choices:
+      - Export (clients/customers abroad)
+      - Import (suppliers abroad)
+      - Production abroad
+      - Representation abroad
+      - No international operations
+    none of the above: True
+
+continue button label: |
+  Continue
+back button: True
+back button label: |
+  Back
+
+---
+code: |
+  if results[i].country != 'Sweden':
+    results[i].region = 'N/A'
+depends on:
+  - results[i].country
+
+---
+#* Q5 SIS/TS:2
+#mandatory: True
+section: Principles
+#decoration: sds_favicon
+question: |
+  ISO 26000: The 7 principles
+#* Genom att fråga om uppskattning betydelse/vikten och grad av principerna samt deras tillämpning får vi en uppskattning kring hur de svarande ser på de olika principerna och hur de själva anser att de implementerar principerna. Fråga 3 behandlar de svarandes syn på deras bransch och framtid betydelse, och den sista frågan ger en griv perceptionsbaserad uppskattning på organisations egna intressenters perspektiv.
+subquestion: |
+  Describe how your organization relates to the 7 principles by answering the following questions: <br><br>
+  1) How ** important ** is the principle for ** your organization**? <br><br>
+  2) To what extent ** do you apply the ** principle in ** your organization? ** <br><br>
+  3) How ** important ** is the principle to ** your sector in 10 years **? <br><br>
+  4) How ** Important ** do you think the principle is for ** your stakeholders **? <br><br>
+ 
+  *Note that you can get examples of the different principles by placing the mouse cursor on each principle below*<br><br>
+fields:
+  - note: <hr> ## styling is done with css - see separate file. 
+
+  - note: <p>{Accountability}<span>&nbsp;</span><span>&#9432;</span><br>
+
+  - 1) Importance for your organization: results[i].q5_respb_imp_est
+    required: True
+    code: |
+      scr_importance_likert
+  - 2) Degree of application in your organization: results[i].q5_respb_imp_app
+    required: True
+    code: |
+      scr_application_likert
+  - 3) importance for your sector in 10 years: results[i].q5_respb_imp_10
+    required: True
+    code: |
+      scr_importance_likert
+  - 4) Importance for your stakeholders: results[i].q5_respb_imp_stakeh
+    required: True
+    code: |
+      scr_importance_likert
+    
+  - note: <hr>
+
+  - note: <p>{Transparency}<span>&nbsp;</span><span>&#9432;</span><br> 
+  - 1) Importance for your organization: results[i].q5_trans_imp_est
+    required: True
+    code: |
+      scr_importance_likert
+  - 2) Degree of application in your organization: results[i].q5_trans_imp_app
+    required: True
+    code: |
+      scr_application_likert
+  - 3) importance for your sector in 10 years: results[i].q5_trans_imp_10
+    required: True
+    code: |
+      scr_importance_likert
+  - 4) Importance for your stakeholders: results[i].q5_trans_imp_stakeh
+    required: True
+    code: |
+      scr_importance_likert
+    
+
+  - note: <hr>
+
+  - note: <p>{Ethical behavior}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Importance for your organization: results[i].q5_ethic_imp_est
+    required: True
+    code: |
+      scr_importance_likert
+  - 2) Degree of application in your organization: results[i].q5_ethic_imp_app
+    required: True
+    code: |
+      scr_application_likert
+  - 3) importance for your sector in 10 years: results[i].q5_ethic_imp_10
+    required: True
+    code: |
+      scr_importance_likert
+  - 4) Importance for your stakeholders: results[i].q5_ethic_imp_stakeh
+    required: True
+    code: |
+      scr_importance_likert
+    
+
+  - note: <hr>
+
+  - note: <p>{Respect for stakeholder interests}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Importance for your organization: results[i].q5_resp_stake_imp_est
+    required: True
+    code: | 
+      scr_importance_likert
+  - 2) Degree of application in your organization: results[i].q5_resp_stake_imp_app
+    required: True
+    code: |
+     scr_application_likert
+  - 3) importance for your sector in 10 years: results[i].q5_resp_stake_imp_10
+    required: True
+    code: |
+      scr_importance_likert
+  - 4) Importance for your stakeholders: results[i].q5_resp_stake_imp_stakeh
+    required: True
+    code: |
+      scr_importance_likert
+    
+
+  - note: <hr>
+
+  - note: <p>{Respect for the rule of law}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Importance for your organization: results[i].q5_resp_state_imp_est
+    required: True
+    code: | 
+      scr_importance_likert
+  - 2) Degree of application in your organization: results[i].q5_resp_state_imp_app
+    required: True
+    code: |
+     scr_application_likert
+  - 3) importance for your sector in 10 years: results[i].q5_resp_state_imp_10
+    required: True
+    code: |
+      scr_importance_likert
+  - 4) Importance for your stakeholders: results[i].q5_resp_state_imp_stakeh
+    required: True    
+    code: |
+      scr_importance_likert
+    
+
+  - note: <hr>
+
+  - note: <p>{Respect for international norms of behaviour}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Importance for your organization: results[i].q5_resp_int_imp_est
+    required: True
+    code: |
+      scr_importance_likert
+  - 2) Degree of application in your organization: results[i].q5_resp_int_imp_app
+    required: True
+    code: |
+     scr_application_likert
+  - 3) importance for your sector in 10 years: results[i].q5_resp_int_imp_10
+    required: True
+    code: |
+      scr_importance_likert
+  - 4) Importance for your stakeholders: results[i].q5_resp_int_imp_stakeh
+    required: True
+    code: |
+      scr_importance_likert
+    
+
+  - note: <hr>
+  - note: <p>{Respect for human rights}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Importance for your organization: results[i].q5_resp_hr_imp_est
+    required: True
+    code: |
+      scr_importance_likert
+  - 2) Degree of application in your organization: results[i].q5_resp_hr_imp_app
+    required: True
+    code: |
+     scr_application_likert
+  - 3) importance for your sector in 10 years<br><br><br>: results[i].q5_resp_hr_imp_10
+    required: True
+    code: |
+      scr_importance_likert
+  - 4) Importance for your stakeholders: results[i].q5_resp_hr_imp_stakeh
+    required: True
+    code: |
+      scr_importance_likert
+    
+
+
+continue button label: |
+  Continue
+back button: True
+back button label: |
+  Back
+
+---
+#* Q11 SIS/TS:2 - MR
+mandatory: True
+section: Core
+#decoration: sds_favicon
+question: |
+  ISO 26000: The 7 core subjects
+#* Genom att fråga om [...] 
+subquestion: |
+  Describe how your business relates to the 7 core subjects by answering the questions below: <br> <br>
+  1) How significant is ** your organization's current impact ** on the core subject area? <br> <br>
+  2) How significant is ** your sector's current impact ** on the core subject area?<br> <br>
+  3) How significant will ** your sector's impact be in 10 years ** on the core subject area? <br> <br>
+  4) How significant do you believe that ** your stakeholders think ** that your organization's impact is on the core subject area?<br> <br> <br>
+fields:
+  - note: <hr>
+  
+  - note: <p>{Organizational governance}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Your organization's impact: results[i].q11_operation_est
+    required: True
+    code: |
+      scr_significance_likert
+  - 2) Your sector's impact <u>today</u>: results[i].q11_operation_est_industry
+    required: True
+    code: |
+      scr_significance_likert
+  - 3) Your sector's impact <u>in 10 years</u>: results[i].q11_operation_est_industry_10
+    required: True
+    code: |
+      scr_significance_likert
+  - 4) Your organization's impact according to <u>key stakeholders</u><br><br>: results[i].q11_operation_est_stakeh
+    required: True
+    code: |
+      scr_significance_likert
+
+
+  - note: <hr>
+  
+  - note: <p>{Human rights}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Your organization's impact: results[i].q11_mr_est
+    required: True
+    code: |
+      scr_significance_likert
+  - 2) Your sector's impact <u>today</u>: results[i].q11_mr_est_industry
+    required: True
+    code: |
+      scr_significance_likert
+  - 3) Your sector's impact <u>in 10 years</u>: results[i].q11_mr_est_industry_10
+    required: True
+    code: |
+      scr_significance_likert
+  - 4) Your organization's impact according to <u>key stakeholders</u><br><br>:  results[i].q11_mr_est_stakeh
+    required: True
+    code: |
+      scr_significance_likert
+
+
+  - note: <hr>
+
+  - note: <p>{Labour practices}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Your organization's impact: results[i].q11_arb_est
+    required: True
+    code: |
+      scr_significance_likert
+  - 2) Your sector's impact <u>today</u>: results[i].q11_arb_est_industry
+    required: True
+    code: |
+      scr_significance_likert
+  - 3) Your sector's impact <u>in 10 years</u>: results[i].q11_arb_est_industry_10
+    required: True
+    code: |
+      scr_significance_likert
+  - 4) Your organization's impact according to <u>key stakeholders</u><br><br>: results[i].q11_arb_est_stakeh
+    required: True
+    code: |
+      scr_significance_likert
+
+
+  - note: <hr>
+  
+  - note: <p>{Environment}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Your organization's impact: results[i].q11_milj_est
+    required: True
+    code: |
+      scr_significance_likert
+  - 2) Your sector's impact <u>today</u>: results[i].q11_milj_est_industry
+    required: True
+    code: |
+      scr_significance_likert
+  - 3) Your sector's impact <u>in 10 years</u>: results[i].q11_milj_est_industry_10
+    required: True
+    code: |
+      scr_significance_likert
+  - 4) Your organization's impact according to <u>key stakeholders</u><br><br>:  results[i].q11_milj_est_stakeh
+    required: True
+    code: |
+      scr_significance_likert
+
+
+  - note: <hr>
+  
+  - note: <p>{Fair operating practices}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Your organization's impact: results[i].q11_gverk_est
+    required: True
+    code: |
+      scr_significance_likert
+  - 2) Your sector's impact <u>today</u>: results[i].q11_gverk_est_industry
+    required: True
+    code: |
+      scr_significance_likert
+  - 3) Your sector's impact <u>in 10 years</u>: results[i].q11_gverk_est_industry_10
+    required: True
+    code: |
+      scr_significance_likert
+  - 4) Your organization's impact according to <u>key stakeholders</u><br><br>:  results[i].q11_gverk_est_stakeh
+    required: True
+    code: |
+      scr_significance_likert
+
+
+  - note: <hr>
+  
+  - note: <p>{Consumer issues}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Your organization's impact: results[i].q11_konsum_est
+    required: True
+    code: |
+      scr_significance_likert
+  - 2) Your sector's impact <u>today</u>: results[i].q11_konsum_est_industry
+    required: True
+    code: |
+      scr_significance_likert
+  - 3) Your sector's impact <u>in 10 years</u>: results[i].q11_konsum_est_industry_10
+    required: True
+    code: |
+      scr_significance_likert
+  - 4) Your organization's impact according to <u>key stakeholders</u><br><br>: results[i].q11_konsum_est_stakeh
+    required: True
+    code: |
+      scr_significance_likert
+
+
+  - note: <hr>
+  
+  - note: <p>{Community involvement and development}<span>&nbsp;</span><span>&#9432;</span><br>
+  - 1) Your organization's impact: results[i].q11_samutv_est
+    required: True
+    code: |
+      scr_significance_likert
+  - 2) Your sector's impact <u>today</u>: results[i].q11_samutv_est_industry
+    required: True
+    code: |
+      scr_significance_likert
+  - 3) Your sector's impact <u>in 10 years</u>: results[i].q11_samutv_est_industry_10
+    required: True
+    code: |
+      scr_significance_likert
+  - 4) Your organization's impact according to <u>key stakeholders</u><br><br>:  results[i].q11_samutv_est_stakeh
+    required: True
+    code: |
+      scr_significance_likert
+
+
+continue button label: |
+  Continue
+back button: True
+back button label: |
+  Back
+
+---
+#* Q8 SIS/TS:2
+mandatory: True
+section: Stakeholders
+question: |
+  ISO 26000: Identify and engage stakeholders
+#* Genom att fråga om [...] 
+
+subquestion: |
+  Describe how your organization relates to its stakeholders, that is, the individuals or groups that have an interest in your decisions and/or activities, by answering the questions below. <br> <br> <br>
+#  1) Vilka är de 5 viktigaste intressenttyperna för **er verksamhet idag**?<br><br>
+#  2) Vilka är de 5 viktigaste intressenttyperna för **er bransch idag**?<br><br>
+#  3) Vilka är de 5 viktigaste intressenttyperna för **er bransch om 10 år**?
+#  <br><br><br>
+
+fields:
+  - note: <hr>
+
+  - note: 1) What are the 5 most important stakeholder types for ** your organization today **?
+  - : results[i].import_stakeholders
+    required: True
+    datatype: checkboxes
+    choices:
+      - Shareholder
+      - Banks
+      - Sector organizations
+      - Trade unions
+      - Investors
+      - Insurance companies
+      - Colleges/Universities
+      - Non-governmental organizations
+      - Investors/financiers
+      - Consumers
+      - Customers
+      - Suppliers
+      - Coworkers/employees
+      - Employees' families
+      - Media
+      - Members
+      - Public agencies
+      - Next generation (younger people)
+      - Partners
+      - The board
+      - Others
+    none of the above: False
+    maxlength: 5
+
+  - note: <hr>
+
+  - note: 2) What are the 5 most important stakeholder types for ** your sector today **?
+  - : results[i].import_stakeholders_ind
+    required: True
+    datatype: checkboxes
+    #help: |
+    #  Ansvarighet - att stå till svars för konsekvenserna av tagna beslut och genomförda aktiviteter.
+    choices:
+      - Shareholder
+      - Banks
+      - Sector organizations
+      - Trade unions
+      - Investors
+      - Insurance companies
+      - Colleges/Universities
+      - Non-governmental organizations
+      - Investors/financiers
+      - Consumers
+      - Customers
+      - Suppliers
+      - Coworkers/employees
+      - Employees' families
+      - Media
+      - Members
+      - Public agencies
+      - Next generation (younger people)
+      - Partners
+      - The board
+      - Others
+    none of the above: False
+    maxlength: 5
+
+  - note: <hr>
+
+
+  - note: 3) What are the 5 most important stakeholder types for ** your sector in 10 years **?
+  - : results[i].import_stakeholders_ind_10
+    required: True
+    datatype: checkboxes
+    #help: |
+    #  Ansvarighet - att stå till svars för konsekvenserna av tagna beslut och genomförda aktiviteter.
+    choices:
+      - Shareholder
+      - Banks
+      - Sector organizations
+      - Trade unions
+      - Investors
+      - Insurance companies
+      - Colleges/Universities
+      - Non-governmental organizations
+      - Investors/financiers
+      - Consumers
+      - Customers
+      - Suppliers
+      - Coworkers/employees
+      - Employees' families
+      - Media
+      - Members
+      - Public agencies
+      - Next generation (younger people)
+      - Partners
+      - The board
+      - Others
+    none of the above: False
+    maxlength: 5
+
+
+continue button label: |
+  Continue
+back button: True
+back button label: |
+  Back
+
+---
+
+#* Q11/38 & Q13/22 SIS/TS:2
+mandatory: True
+section: Priorities
+#decoration: sds_favicon
+question: |
+    ISO 26000: Priorities
+#* Genom att fråga om [...] 
+
+
+subquestion: |
+  Prioritization can help identifiy areas with the largest effect for an organisations as well as the socitey at large.<br><br>
+  
+  SustCoReport highlights two priority bases - the core subject areas and the UN's global goals for sustainable development. You can then add your own specific priorities based on your unique budget, skills, strategy and communication. <br> <br>
+  
+  Please provide your organization's prioritizes by estimating answers to the following questions: <br> <br>
+
+fields:
+
+  - note: 1) How important is the core subject for ** your organizations's strategic goals ** in the coming 1-3 year period?
+
+  - Organizational governance: results[i].q0_prio_oper_est
+    required: True
+    code:
+      scr_importance_likert
+  - Human rights: results[i].q0_prio_mr_est
+    required: True
+    code:
+      scr_importance_likert
+  - Labour practices: results[i].q0_prio_work_est
+    required: True
+    code:
+      scr_importance_likert
+  - Environment: results[i].q0_prio_env_est
+    required: True
+    code:
+      scr_importance_likert
+  - Fair operating practices: results[i].q0_prio_good_work_est
+    required: True
+    code:
+      scr_importance_likert
+  - Consumer issues: results[i].q0_prio_consum_est
+    required: True
+    code:
+      scr_importance_likert
+  - Community involvement and development: results[i].q0_prio_soc_dev_est
+    required: True
+    code:
+      scr_importance_likert
+
+  - note: <hr>
+
+  - note: 2) Which 3 of the UN's 17 global goals for sustainable development do you consider to be most important for ** your organization's** long-term success?
+
+  - Svar : results[i].q22_sdg_org
+    required: True
+    datatype: checkboxes
+    choices:
+      - 1 - No Poverty
+      - 2 - Zero Hunger
+      - 3 - Good Health and Well-being
+      - 4 - Quality Education
+      - 5 - Gender Equality
+      - 6 - Clean Water and Sanitation
+      - 7 - Affordable and Clean Energy
+      - 8 - Decent Work and Economic Growth
+      - 9 - Industry, Innovation and Infrastructure
+      - 10 - Reduced Inequality
+      - 11 - Sustainable Cities and Communities
+      - 12 - Responsible Consumption and Production
+      - 13 - Climate Action
+      - 14 - Life Below Water
+      - 15 - Life on Land
+      - 16 - Peace and Justice Strong Institutions
+      - 17 - Partnerships to achieve the Goal
+    none of the above: False
+    maxlength: 3
+
+  - note: <hr>
+
+  - note: 3) Which 3 of the UN's 17 global goals for sustainable development do you consider to be most important for ** the world's ** long-term success?
+
+  - Svar : results[i].q22_sdg_world
+    required: True
+    datatype: checkboxes
+    choices:
+      - 1 - No Poverty
+      - 2 - Zero Hunger
+      - 3 - Good Health and Well-being
+      - 4 - Quality Education
+      - 5 - Gender Equality
+      - 6 - Clean Water and Sanitation
+      - 7 - Affordable and Clean Energy
+      - 8 - Decent Work and Economic Growth
+      - 9 - Industry, Innovation and Infrastructure
+      - 10 - Reduced Inequality
+      - 11 - Sustainable Cities and Communities
+      - 12 - Responsible Consumption and Production
+      - 13 - Climate Action
+      - 14 - Life Below Water
+      - 15 - Life on Land
+      - 16 - Peace and Justice Strong Institutions
+      - 17 - Partnerships to achieve the Goal
+    none of the above: False
+    maxlength: 3
+
+continue button label: |
+  Continue
+back button: True
+back button label: |
+  Back
+
+---
+code: |
+  results.there_is_another = False
+---
+
+#* visualisation code - note the dependancy from display_graph.py
+mandatory: True
+code: |
+  import pandas as pd
+  #* df (creted above) with all varibles from the interview - to use in doc and questions below
+  #df = df.replace(r'^\s*$', np.nan, regex=True)
+  #* first graph --> 1.1 PRINCIP VIKT FÖR VERKSAMHET (HELTÄCK #1); 1.2 GRAD AV TILLÄMP (HELTÄCK #2); 
+  
+  radar_1_categories = [
+    "Accountability",
+    "Transparency",
+    "Ethical<br>behavior",
+    "Respect for<br>stakeholder<br>interests",
+    "Respect for<br>the rule<br>of law",
+    "Respect for international<br>norms of behaviour",
+    "Respect for<br>human<br>rights",
+    ]
+  
+  radar_1_t1_name = "Importance to<br>organization"
+  
+
+  radar_1_t1 = df[[
+    "Q5_ansvarighet",
+    "Q5_transparens",
+    "Q5_etiskt_uppförande",
+    "Q5_intressenternas_intressen",
+    "Q5_rättsstatens_principer",
+    "Q5_internationella_uppförandenormer",
+    "Q5_mänskliga_rättigheter"]]
+  
+
+  radar_1_t2_name = "Degree of<br>application<br>in organization"
+
+  radar_1_t2 = df[[
+    "Q5_ansvarighet_tillämp",
+    "Q5_transparens_tillämp",
+    "Q5_etiskt_uppförande_tillämp",
+    "Q5_intressenternas_intressen_tillämp",
+    "Q5_rättsstatens_principer_tillämp",
+    "Q5_internationella_uppförandenormer_tillämp",
+    "Q5_mänskliga_rättigheter_tillämp",]]
+
+
+  radar_plot_1 = show_graph_radar(t1=radar_1_t1,
+  t2=radar_1_t2,
+  t1_name=radar_1_t1_name,
+  t2_name=radar_1_t2_name,
+  categories=radar_1_categories,
+  filename="radar_1.png",
+  visualization_image=visualization_image_radar_1,
+  height=900,
+  width=1200,
+  color="#2962F6")
+
+  #####
+  #* second graph --> 1.1 PRINCIP VIKT FÖR VERKSAMHET (HELTÄCK #1); 1.3 VIKT FÖR BRANSCH OM 10 ÅR (HELTÄCK #2)
+  
+  radar_2_categories = [
+      "Accountability",
+      "Transparency",
+      "Ethical<br>behavior",
+      "Respect for<br>stakeholder<br>interests",
+      "Respect for<br>the rule<br>of law",
+      "Respect for international<br>norms of behaviour",
+      "Respect for<br>human<br>rights",
+      ]
+  
+  radar_2_t1_name = "Importance for<br>organization"
+  
+  radar_2_t1 = df[[
+    "Q5_ansvarighet",
+    "Q5_transparens",
+    "Q5_etiskt_uppförande",
+    "Q5_intressenternas_intressen",
+    "Q5_rättsstatens_principer",
+    "Q5_internationella_uppförandenormer",
+    "Q5_mänskliga_rättigheter"]]
+  
+  radar_2_t2_name = "Importance for<br>sector in<br>10 years"
+
+  radar_2_t2 = df[["Q5_ansvarighet_10",
+    "Q5_transparens_10",
+    "Q5_etiskt_uppförande_10",
+    "Q5_intressenternas_intressen_10",
+    "Q5_rättsstatens_principer_10",
+    "Q5_internationella_uppförandenormer_10",
+    "Q5_mänskliga_rättigheter_10",]]
+
+
+  radar_plot_2 = show_graph_radar(t1=radar_2_t1,
+  t2=radar_2_t2,
+  t1_name=radar_2_t1_name,
+  t2_name=radar_2_t2_name,
+  categories=radar_2_categories,
+  filename="radar_2.png",
+  visualization_image=visualization_image_radar_2,
+  height=900,
+  width=1200,
+  color="#2962F6")
+
+  #######
+
+  #* third graph --> 2.1 VERKSAMHET NUVARANDE PÅVERKAN PÅ ANSVARSOMRÅDE (HELTÄCK #1); 2.4 VIKT AV PÅVERKAN ENLIGT INTRESSENT (HELTÄCK #2);
+  
+  radar_3_categories = [
+    "Organizational<br>governance",
+    "Human rights",
+    "Labour<br>practices",
+    "Environment",
+    "Fair operating<br>practices",
+    "Consumer<br>issues",
+    "Community<br>involvement<br>and development",
+    ]  
+
+  radar_3_t1_name = "Our current<br>impact"
+  
+  radar_3_t1 = df[[
+    "Q11_verk_organisation",
+    "Q11_mr_organisation",
+    "Q11_arb_organisation",
+    "Q11_milj_organisation",
+    "Q11_gverk_organisation",
+    "Q11_konsum_organisation",
+    "Q11_samutv_organisation",]]
+  
+  radar_3_t2_name = "Stakeholders' view<br>on our<br>impact"
+
+  radar_3_t2 = df[[
+    "Q11_verk_intressent",
+    "Q11_mr_intressent",
+    "Q11_arb_intressent",
+    "Q11_milj_intressent",
+    "Q11_gverk_intressent",
+    "Q11_konsum_intressent",
+    "Q11_samutv_intressent",]]
+
+  radar_plot_3 = show_graph_radar(
+    t1=radar_3_t1,
+    t2=radar_3_t2,
+    t1_name=radar_3_t1_name,
+    t2_name=radar_3_t2_name,
+    categories=radar_3_categories,
+    filename="radar_3.png",
+    visualization_image=visualization_image_radar_3,
+    height=800,
+    width=1100,
+    color="#FF5358")
+  
+  #####
+  #* Fourth graph --> 2.1 VERKSAMHET NUVARANDE PÅVERKAN PÅ ANSVARSOMRÅDE (HELTÄCK #1); 2.3 BRANSCHENS FRAMTIDA PÅVERKAN PÅ ANSVARSOMRÅDE (HELTÄCK #2);
+  
+  radar_4_categories = [
+    "Organizational<br>governance",
+    "Human rights",
+    "Labour<br>practices",
+    "Environment",
+    "Fair operating<br>practices",
+    "Consumer<br>issues",
+    "Community<br>involvement<br>and development",]  
+
+  radar_4_t1_name = "Our current<br>impact"
+  
+  radar_4_t1 = df[[
+    "Q11_verk_organisation",
+    "Q11_mr_organisation",
+    "Q11_arb_organisation",
+    "Q11_milj_organisation",
+    "Q11_gverk_organisation",
+    "Q11_konsum_organisation",
+    "Q11_samutv_organisation",]]
+  
+  radar_4_t2_name = "Sectors<br>future impact"
+
+  radar_4_t2 = df[["Q11_verk_10",
+    "Q11_mr_10",
+    "Q11_arb_10",
+    "Q11_milj_10",
+    "Q11_gverk_10",
+    "Q11_konsum_10",
+    "Q11_samutv_10",]]
+
+  radar_plot_4 = show_graph_radar(
+    t1=radar_4_t1,
+    t2=radar_4_t2,
+    t1_name=radar_4_t1_name,
+    t2_name=radar_4_t2_name,
+    categories=radar_4_categories,
+    filename="radar_4.png",
+    visualization_image=visualization_image_radar_4,
+    height=800,
+    width=1100,
+    color="#FF5358")
+
+  #* Fifth graph --> 2.1 VERKSAMHET NUVARANDE PÅVERKAN PÅ ANSVARSOMRÅDE; VIKT AV ANSVARSOMRÅDEN FÖR AFFÄREN/STRATEGIN 4.1 (Y AXIS)
+  
+  scatter_1a = df[[
+      "Q11_verk_organisation",
+      "Q11_mr_organisation",
+      "Q11_arb_organisation",
+      "Q11_milj_organisation",
+      "Q11_gverk_organisation",
+      "Q11_konsum_organisation",
+      "Q11_samutv_organisation",]]
+  
+  scatter_1_t1_name = "Current impact on core subjects"
+  
+  scatter_1_t1 = [sort_empty_df(obj) for obj in scatter_1a.transpose()[0].to_list()]
+  
+
+  scatter_1b = df[[
+      "Q22_org_prio_verksamhet",
+      "Q22_org_prio_mr",
+      "Q22_org_prio_arbförhåll",
+      "Q22_org_prio_miljö",
+      "Q22_org_prio_verkmetod",
+      "Q22_org_prio_konsumentfråg",
+      "Q22_org_prio_samhällutv",]]
+  
+  scatter_1_t2_name = "Importance of core subjects for strategic goals"
+
+  scatter_1_t2 = [sort_empty_df(obj) for obj in scatter_1b.transpose()[0].to_list()]
+    
+  core_subject_areas = [
+    "Organizational governance",
+    "Human rights",
+    "Labour practices",
+    "Environment",
+    "Fair operating practices",
+    "Consumer issues",
+    "Community involvement and development",]
+
+  scatter_1_t0_name = "Core subject area"
+ 
+  df_scatter = pd.DataFrame.from_dict({
+    scatter_1_t0_name : core_subject_areas,
+    scatter_1_t1_name : scatter_1_t1,
+    scatter_1_t2_name : scatter_1_t2 })
+
+  scatter_plot = show_graph_scatter(df=df_scatter,   filename="scatter_plot.png", visualization_image=visualization_image_scatter, height=500, width=900)
+  
+  data = df.loc[0,:].to_dict()
+  data['source'] = 'SustCoReportBASen'
+  reponse_status_code=store_interview_results(data)
+
+
+---
+### Signature for respondent
+#mandatory: True
+#section: Signatur
+#question: |
+#  Underskrift för ${df.Organisation[0]}
+#subquestion: |
+#  Genom att underteckna nedan intygar du -  ${responsible_person_docinput} - på heder #och samvete att givna uppgifter är fullständiga och sanningsenliga.
+#signature: signature_docinput
+#under: |
+#  ${ "Er signatur" }
+#
+#
+#continue button label: |
+#  Fortsätt
+#back button: True
+#back button label: |
+#  Tillbaka
+#
+#
+#---
+
+template: sustcoreport_email
+subject: |
+  Your SustCoReport 
+content: |
+  Dear sir or madam,
+  
+  Attached you'll find your SustCoReport.
+
+---
+
+mandatory: True
+section: Report
+email template: sustcoreport_email
+css class: report_download
+#decoration: sds_favicon
+question: Your SustCoReport is ready for download
+subquestion: Congratulations, you have now created your SustCoReport, which can form the basis for your organization's continued work to contribute to asustainable development.<br><br>Good luck!
+attachments:
+  - name: ""
+    filename: sustcoreport_base_${df.Organisation[0]}
+    docx template file: ra_temp.docx
+    valid formats:
+      - pdf
+      #- docx
+
+buttons:
+  #- Continue: continue
+  - Exit: exit
+    url: https://sustcoreport.com/en
+back button: True
+back button label: | 
+  Back
+under: |
+  If you want to download your responses in excel use this link:  ${ xlsx_transposed(results_table, 'sustcoreport_base_raw.xlsx','sustcoreport_base')}<br><br> <i>Important: all personal varibles will be deleted once this page is closed.</i>
+
+
+
+---
+
+#mandatory: True
+##decoration: sds_favicon
+#question: |
+#  Webbaserad sustcoreport hållharbetsanalys för ${df.Organisation[0]}
+#subquestion: |
+#  Nedanstående grafer redogör för de uppgifter som lämnats under analysen. 
+#
+#  *Figur 1. XXX*
+#  ${ radar_plot_1.show(width='400px') } 
+#
+#  *Figur 2. XXX*
+#  ${ radar_plot_2.show(width='400px') } 
+#
+#  *Figur 3. XXX*
+#  ${ scatter_plot.show(width='600px')}
+#
+#buttons:
+#  - Fortsätt: continue
+#back button: True
+#back button label: |
+#  Tillbaka
+#---
+
+#mandatory: True
+#section: End
+#css class: scr_exit
+#decoration: sds_favicon
+#question: |
+#  Congratulations, you have now created your SustCoReport which can form the basis for your organization's continued work to contribute to sustainable development.
+#  <br><br>Good luck!
+
+ 
+
+#buttons:
+#  - Exit: exit
+#    url: https://sustcoreport.com/en
+  #- Konsultstöd: exit
+  #  url: https://amap.se/
+  #- SIS/TS 2:2021: exit
+  #  url: https://www.sis.se/en/produkter/management-system/social-responsibility/sists-22021/
