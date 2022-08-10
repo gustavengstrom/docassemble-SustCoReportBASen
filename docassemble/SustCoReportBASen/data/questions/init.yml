@@ -19,7 +19,7 @@ subquestion: |
  
   It takes an estimated 15-20 minutes to complete the questions, which generates a unique report for your company or organization.
   
-  The process is completely anonymous and no information that can be linked to you or your company or organization will be recorded. Read more about how submitted information is handled via the link {information management}<br><br>
+  The process is completely anonymous and no information that can be linked to you or your company or organization will be recorded. Read more about how submitted information is handled via the link {information management}.<br><br>
 
 
 buttons:
@@ -44,8 +44,6 @@ fields:
   - Today's date: results[i].date
     datatype: date
     required: True
-  - Your name: responsible_person_docinput
-    required: False
   - Name of the organization: results[i].name.text
     required: True
   - Organizational form: results[i].org_form
@@ -91,7 +89,9 @@ fields:
       - Representation abroad
       - No international operations
     none of the above: True
-
+  - SustPrio Participant code: results[i].person_name
+    required: False
+    
 continue button label: |
   Continue
 back button: True
@@ -118,13 +118,13 @@ subquestion: |
   1) How ** important ** is the principle for ** your organization**? <br><br>
   2) To what extent ** do you apply the ** principle in ** your organization? ** <br><br>
   3) How ** important ** is the principle to ** your sector in 10 years **? <br><br>
-  4) How ** Important ** do you think the principle is for ** your stakeholders **? <br><br>
+  4) How ** important ** do you think the principle is for ** your stakeholders **? <br><br>
  
   *Note that you can get examples of the different principles by placing the mouse cursor on each principle below*<br><br>
 fields:
   - note: <hr> ## styling is done with css - see separate file. 
 
-  - note: <p>{Accountability}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Accountability|Accountability :far-fa-comment-dots:}</p>
 
   - 1) Importance for your organization: results[i].q5_respb_imp_est
     required: True
@@ -134,7 +134,7 @@ fields:
     required: True
     code: |
       scr_application_likert
-  - 3) importance for your sector in 10 years: results[i].q5_respb_imp_10
+  - 3) Importance for your sector in 10 years: results[i].q5_respb_imp_10
     required: True
     code: |
       scr_importance_likert
@@ -145,7 +145,7 @@ fields:
     
   - note: <hr>
 
-  - note: <p>{Transparency}<span>&nbsp;</span><span>&#9432;</span><br> 
+  - note: <p>{Transparency|Transparency :far-fa-comment-dots:}</p>
   - 1) Importance for your organization: results[i].q5_trans_imp_est
     required: True
     code: |
@@ -154,7 +154,7 @@ fields:
     required: True
     code: |
       scr_application_likert
-  - 3) importance for your sector in 10 years: results[i].q5_trans_imp_10
+  - 3) Importance for your sector in 10 years: results[i].q5_trans_imp_10
     required: True
     code: |
       scr_importance_likert
@@ -166,7 +166,7 @@ fields:
 
   - note: <hr>
 
-  - note: <p>{Ethical behavior}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Ethical behavior|Ethical behavior :far-fa-comment-dots:}</p>
   - 1) Importance for your organization: results[i].q5_ethic_imp_est
     required: True
     code: |
@@ -175,7 +175,7 @@ fields:
     required: True
     code: |
       scr_application_likert
-  - 3) importance for your sector in 10 years: results[i].q5_ethic_imp_10
+  - 3) Importance for your sector in 10 years: results[i].q5_ethic_imp_10
     required: True
     code: |
       scr_importance_likert
@@ -187,7 +187,7 @@ fields:
 
   - note: <hr>
 
-  - note: <p>{Respect for stakeholder interests}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Respect for stakeholder interests|Respect for stakeholder interests :far-fa-comment-dots:}</p>
   - 1) Importance for your organization: results[i].q5_resp_stake_imp_est
     required: True
     code: | 
@@ -196,7 +196,7 @@ fields:
     required: True
     code: |
      scr_application_likert
-  - 3) importance for your sector in 10 years: results[i].q5_resp_stake_imp_10
+  - 3) Importance for your sector in 10 years: results[i].q5_resp_stake_imp_10
     required: True
     code: |
       scr_importance_likert
@@ -208,7 +208,7 @@ fields:
 
   - note: <hr>
 
-  - note: <p>{Respect for the rule of law}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Respect for the rule of law|Respect for the rule of law :far-fa-comment-dots:}</p>
   - 1) Importance for your organization: results[i].q5_resp_state_imp_est
     required: True
     code: | 
@@ -217,7 +217,7 @@ fields:
     required: True
     code: |
      scr_application_likert
-  - 3) importance for your sector in 10 years: results[i].q5_resp_state_imp_10
+  - 3) Importance for your sector in 10 years: results[i].q5_resp_state_imp_10
     required: True
     code: |
       scr_importance_likert
@@ -229,7 +229,7 @@ fields:
 
   - note: <hr>
 
-  - note: <p>{Respect for international norms of behaviour}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Respect for international norms of behaviour|Respect for international norms of behaviour :far-fa-comment-dots:}</p>
   - 1) Importance for your organization: results[i].q5_resp_int_imp_est
     required: True
     code: |
@@ -238,7 +238,7 @@ fields:
     required: True
     code: |
      scr_application_likert
-  - 3) importance for your sector in 10 years: results[i].q5_resp_int_imp_10
+  - 3) Importance for your sector in 10 years: results[i].q5_resp_int_imp_10
     required: True
     code: |
       scr_importance_likert
@@ -249,7 +249,7 @@ fields:
     
 
   - note: <hr>
-  - note: <p>{Respect for human rights}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Respect for human rights|Respect for human rights :far-fa-comment-dots:}</p>
   - 1) Importance for your organization: results[i].q5_resp_hr_imp_est
     required: True
     code: |
@@ -258,7 +258,7 @@ fields:
     required: True
     code: |
      scr_application_likert
-  - 3) importance for your sector in 10 years<br><br><br>: results[i].q5_resp_hr_imp_10
+  - 3) Importance for your sector in 10 years: results[i].q5_resp_hr_imp_10
     required: True
     code: |
       scr_importance_likert
@@ -284,7 +284,7 @@ question: |
   ISO 26000: The 7 core subjects
 #* Genom att fråga om [...] 
 subquestion: |
-  Describe how your business relates to the 7 core subjects by answering the questions below: <br> <br>
+  Describe how your organization relates to the 7 core subjects by answering the questions below: <br> <br>
   1) How significant is ** your organization's current impact ** on the core subject area? <br> <br>
   2) How significant is ** your sector's current impact ** on the core subject area?<br> <br>
   3) How significant will ** your sector's impact be in 10 years ** on the core subject area? <br> <br>
@@ -292,28 +292,7 @@ subquestion: |
 fields:
   - note: <hr>
   
-  - note: <p>{Organizational governance}<span>&nbsp;</span><span>&#9432;</span><br>
-  - 1) Your organization's impact: results[i].q11_operation_est
-    required: True
-    code: |
-      scr_significance_likert
-  - 2) Your sector's impact <u>today</u>: results[i].q11_operation_est_industry
-    required: True
-    code: |
-      scr_significance_likert
-  - 3) Your sector's impact <u>in 10 years</u>: results[i].q11_operation_est_industry_10
-    required: True
-    code: |
-      scr_significance_likert
-  - 4) Your organization's impact according to <u>key stakeholders</u><br><br>: results[i].q11_operation_est_stakeh
-    required: True
-    code: |
-      scr_significance_likert
-
-
-  - note: <hr>
-  
-  - note: <p>{Human rights}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Human rights|Human rights :far-fa-comment-dots:}</p>
   - 1) Your organization's impact: results[i].q11_mr_est
     required: True
     code: |
@@ -334,7 +313,7 @@ fields:
 
   - note: <hr>
 
-  - note: <p>{Labour practices}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Labour practices|Labour practices :far-fa-comment-dots:}</p>
   - 1) Your organization's impact: results[i].q11_arb_est
     required: True
     code: |
@@ -355,7 +334,7 @@ fields:
 
   - note: <hr>
   
-  - note: <p>{Environment}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Environment|Environment :far-fa-comment-dots:}</p>
   - 1) Your organization's impact: results[i].q11_milj_est
     required: True
     code: |
@@ -376,7 +355,7 @@ fields:
 
   - note: <hr>
   
-  - note: <p>{Fair operating practices}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Fair operating practices|Fair operating practices :far-fa-comment-dots:}</p>
   - 1) Your organization's impact: results[i].q11_gverk_est
     required: True
     code: |
@@ -397,7 +376,7 @@ fields:
 
   - note: <hr>
   
-  - note: <p>{Consumer issues}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Consumer issues|Consumer issues :far-fa-comment-dots:}</p>
   - 1) Your organization's impact: results[i].q11_konsum_est
     required: True
     code: |
@@ -418,7 +397,7 @@ fields:
 
   - note: <hr>
   
-  - note: <p>{Community involvement and development}<span>&nbsp;</span><span>&#9432;</span><br>
+  - note: <p>{Community involvement and development|Community involvement and development :far-fa-comment-dots:}</p>
   - 1) Your organization's impact: results[i].q11_samutv_est
     required: True
     code: |
@@ -435,6 +414,30 @@ fields:
     required: True
     code: |
       scr_significance_likert
+
+  - note: <hr>
+  
+  - note: <p>{Organizational governance|Organizational governance :far-fa-comment-dots:}</p><h6>The last core subject deviates from the others since it is more a prerequisite for impacting within the other 6 core subjects.<br><br>The question thus becomes how significant {Organizational governance} is for an overall impact within the 6 mentioned core subjects.</h6><br>  
+  - 1) Your organization's impact: results[i].q11_operation_est
+    required: True
+    code: |
+      scr_significance_likert
+  - 2) Your sector's impact <u>today</u>: results[i].q11_operation_est_industry
+    required: True
+    code: |
+      scr_significance_likert
+  - 3) Your sector's impact <u>in 10 years</u>: results[i].q11_operation_est_industry_10
+    required: True
+    code: |
+      scr_significance_likert
+  - 4) Your organization's impact according to <u>key stakeholders</u><br><br>: results[i].q11_operation_est_stakeh
+    required: True
+    code: |
+      scr_significance_likert
+
+
+  - note: <hr>
+
 
 
 continue button label: |
@@ -461,7 +464,7 @@ subquestion: |
 fields:
   - note: <hr>
 
-  - note: 1) What are the 5 most important stakeholder types for ** your organization today **?
+  - note: 1) What are the 5 most important stakeholder types for **your organization today**?
   - : results[i].import_stakeholders
     required: True
     datatype: checkboxes
@@ -474,7 +477,7 @@ fields:
       - Insurance companies
       - Colleges/Universities
       - Non-governmental organizations
-      - Investors/financiers
+      - Financiers
       - Consumers
       - Customers
       - Suppliers
@@ -492,7 +495,7 @@ fields:
 
   - note: <hr>
 
-  - note: 2) What are the 5 most important stakeholder types for ** your sector today **?
+  - note: 2) What are the 5 most important stakeholder types for **your sector today**?
   - : results[i].import_stakeholders_ind
     required: True
     datatype: checkboxes
@@ -507,7 +510,7 @@ fields:
       - Insurance companies
       - Colleges/Universities
       - Non-governmental organizations
-      - Investors/financiers
+      - Financiers
       - Consumers
       - Customers
       - Suppliers
@@ -526,7 +529,7 @@ fields:
   - note: <hr>
 
 
-  - note: 3) What are the 5 most important stakeholder types for ** your sector in 10 years **?
+  - note: 3) What are the 5 most important stakeholder types for **your sector in 10 years**?
   - : results[i].import_stakeholders_ind_10
     required: True
     datatype: checkboxes
@@ -541,7 +544,7 @@ fields:
       - Insurance companies
       - Colleges/Universities
       - Non-governmental organizations
-      - Investors/financiers
+      - Financiers
       - Consumers
       - Customers
       - Suppliers
@@ -576,7 +579,7 @@ question: |
 
 
 subquestion: |
-  Prioritization can help identifiy areas with the largest effect for an organisations as well as the socitey at large.<br><br>
+  Prioritization can help identifiy areas with the largest effect for an organisation as well as the socitey at large.<br><br>
   
   SustCoReport highlights two priority bases - the core subject areas and the UN's global goals for sustainable development. You can then add your own specific priorities based on your unique budget, skills, strategy and communication. <br> <br>
   
@@ -619,7 +622,7 @@ fields:
 
   - note: 2) Which 3 of the UN's 17 global goals for sustainable development do you consider to be most important for ** your organization's** long-term success?
 
-  - Svar : results[i].q22_sdg_org
+  - Responses : results[i].q22_sdg_org
     required: True
     datatype: checkboxes
     choices:
@@ -638,8 +641,8 @@ fields:
       - 13 - Climate Action
       - 14 - Life Below Water
       - 15 - Life on Land
-      - 16 - Peace and Justice Strong Institutions
-      - 17 - Partnerships to achieve the Goal
+      - 16 - Peace, Justice and Strong Institutions
+      - 17 - Partnerships for the goals
     none of the above: False
     maxlength: 3
 
@@ -647,7 +650,7 @@ fields:
 
   - note: 3) Which 3 of the UN's 17 global goals for sustainable development do you consider to be most important for ** the world's ** long-term success?
 
-  - Svar : results[i].q22_sdg_world
+  - Responses : results[i].q22_sdg_world
     required: True
     datatype: checkboxes
     choices:
@@ -666,8 +669,8 @@ fields:
       - 13 - Climate Action
       - 14 - Life Below Water
       - 15 - Life on Land
-      - 16 - Peace and Justice Strong Institutions
-      - 17 - Partnerships to achieve the Goal
+      - 16 - Peace, Justice and Strong Institutions
+      - 17 - Partnerships for the goals
     none of the above: False
     maxlength: 3
 
@@ -922,11 +925,13 @@ code: |
 
   scatter_plot = show_graph_scatter(df=df_scatter,   filename="scatter_plot.png", visualization_image=visualization_image_scatter, height=500, width=900)
   
-  data = df.loc[0,:].to_dict()
-  data['source'] = 'SustCoReportBASen'
-  reponse_status_code=store_interview_results(data)
-
-
+  ## store data
+  if not "playground" in interview_url():
+    data = df.loc[0,:].to_dict()
+    data['source'] = "SustCoReportBASen"
+    reponse_status_code=store_interview_results(data)
+  
+  
 ---
 ### Signature for respondent
 #mandatory: True
@@ -965,7 +970,7 @@ email template: sustcoreport_email
 css class: report_download
 #decoration: sds_favicon
 question: Your SustCoReport is ready for download
-subquestion: Congratulations, you have now created your SustCoReport, which can form the basis for your organization's continued work to contribute to asustainable development.<br><br>Good luck!
+subquestion: Congratulations, you have now created your SustCoReport, which can form the basis for your organization's continued work to contribute to a sustainable development.<br><br>Good luck!
 attachments:
   - name: ""
     filename: sustcoreport_base_${df.Organisation[0]}
@@ -977,7 +982,7 @@ attachments:
 buttons:
   #- Continue: continue
   - Exit: exit
-    url: https://sustcoreport.com/en
+    url: https://sustcoreport.com/
 back button: True
 back button label: | 
   Back
@@ -1023,7 +1028,7 @@ under: |
 
 #buttons:
 #  - Exit: exit
-#    url: https://sustcoreport.com/en
+#    url: https://sustcoreport.com/
   #- Konsultstöd: exit
   #  url: https://amap.se/
   #- SIS/TS 2:2021: exit
