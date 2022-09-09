@@ -10,7 +10,8 @@ modules:
 
 ---
 mandatory: True
-section: Introduktion
+section: Introduction
+id: introduction
 question:  |
   [FILE sustcoreport_logo]
 subquestion: |
@@ -19,7 +20,10 @@ subquestion: |
  
   It takes an estimated 15-20 minutes to complete the questions, which generates a unique report for your company or organization.
   
-  The process is completely anonymous and no information that can be linked to you or your company or organization will be recorded. Read more about how submitted information is handled via the link {information management}.<br><br>
+  The process is completely anonymous and no information that can be linked to you or your company or organization will be recorded. Read more about how submitted information is handled via the link {information management}.
+  
+  Note that a few questions likely will be a bit difficult to give firm responses to. This is a consequence of the fact that they are designed in accordance with international standards. In these cases please estimate to the best of your ability.
+  <br><br>
 
 
 buttons:
@@ -89,7 +93,7 @@ fields:
       - Representation abroad
       - No international operations
     none of the above: True
-  - SustPrio Participant code: results[i].person_name
+  - If you have a <b>SustPrio Participant code</b> submit it here, otherwise skip this field: results[i].person_name
     required: False
     
 continue button label: |
@@ -288,7 +292,9 @@ subquestion: |
   1) How significant is ** your organization's current impact ** on the core subject area? <br> <br>
   2) How significant is ** your sector's current impact ** on the core subject area?<br> <br>
   3) How significant will ** your sector's impact be in 10 years ** on the core subject area? <br> <br>
-  4) How significant do you believe that ** your stakeholders think ** that your organization's impact is on the core subject area?<br> <br> <br>
+  4) How significant do you believe that ** your stakeholders think ** that your organization's impact is on the core subject area?<br><br>
+  *Note that you can get examples of the different core subjects by placing the mouse cursor on each core subject below*<br><br>
+  <br><br>
 fields:
   - note: <hr>
   
@@ -491,6 +497,7 @@ fields:
       - The board
       - Others
     none of the above: False
+    minlength: 5
     maxlength: 5
 
   - note: <hr>
@@ -524,6 +531,7 @@ fields:
       - The board
       - Others
     none of the above: False
+    minlength: 5
     maxlength: 5
 
   - note: <hr>
@@ -558,6 +566,7 @@ fields:
       - The board
       - Others
     none of the above: False
+    minlength: 5
     maxlength: 5
 
 
@@ -644,6 +653,7 @@ fields:
       - 16 - Peace, Justice and Strong Institutions
       - 17 - Partnerships for the goals
     none of the above: False
+    minlength: 3
     maxlength: 3
 
   - note: <hr>
@@ -672,6 +682,7 @@ fields:
       - 16 - Peace, Justice and Strong Institutions
       - 17 - Partnerships for the goals
     none of the above: False
+    minlength: 3
     maxlength: 3
 
 continue button label: |
@@ -958,7 +969,7 @@ template: sustcoreport_email
 subject: |
   Your SustCoReport 
 content: |
-  Dear sir or madam,
+  Dear Sir or Madam,
   
   Attached you'll find your SustCoReport.
 
@@ -969,6 +980,7 @@ section: Report
 email template: sustcoreport_email
 css class: report_download
 #decoration: sds_favicon
+id: last page
 question: Your SustCoReport is ready for download
 subquestion: Congratulations, you have now created your SustCoReport, which can form the basis for your organization's continued work to contribute to a sustainable development.<br><br>Good luck!
 attachments:

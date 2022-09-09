@@ -43,7 +43,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.SustCoReportBASen',
-      version='0.1.5',
+      version='0.1.13',
       description=('A docassemble extension.'),
       long_description='# docassemble.SustCoReportBASen\r\n\r\nA docassemble extension.\r\n\r\n## Author\r\n\r\nJonas Norén, jonas@davcon.se',
       long_description_content_type='text/markdown',
